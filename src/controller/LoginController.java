@@ -1,3 +1,4 @@
+  
 package controller;
 
 import java.io.IOException;
@@ -41,7 +42,16 @@ public class LoginController extends HttpServlet {
 		user.setPassword(password);
 		UserDAO userdao = new UserDAO();
 		
-		boolean validateUser = userdao.loginUser(user);
+		boolean validateUser=false;
+		try {
+			validateUser = userdao.loginUser(user);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(validateUser) {
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/blogView.jsp");
 			rd.forward(request, response);
